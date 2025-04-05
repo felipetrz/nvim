@@ -20,11 +20,16 @@ return {
             keymap = { preset = 'super-tab' },
         },
     },
+
+    -- Finder
     {
-        'nvim-telescope/telescope.nvim',
-        dependencies = { 'nvim-telescope/telescope-ui-select.nvim' },
+        'ibhagwan/fzf-lua',
         config = function()
-            require('telescope').load_extension('ui-select')
+            local module = require('fzf-lua')
+            module.register_ui_select()
+
+            vim.keymap.set('n', '<leader>f', '<cmd>FzfLua live_grep<cr>', { silent = true })
+            vim.keymap.set('n', '<leader>o', '<cmd>FzfLua files<cr>', { silent = true })
         end,
     },
 
