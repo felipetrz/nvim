@@ -4,6 +4,7 @@ return {
         'nvim-lua/plenary.nvim',
         'ibhagwan/fzf-lua',
     },
+    event = 'BufEnter',
     opts = {
         user_input_ui = 'native',
         providers = { ollama = {} },
