@@ -11,13 +11,12 @@ if gitdiff then
     local model = 'qwen2.5-coder:14b-instruct-q2_K'
 
     local prompt = [[
-    I want you to act as a commit message generator. I will provide you
-    with information about the task and the prefix for the task code, and
-    I would like you to generate an appropriate commit message.
-    Do not write any explanations or other words, just reply with the commit
-    message.
+    I want you to act as a commit message generator.
 
-    Use the following template for the output:
+    Read the changes and provide an appropriate commit message detailing every
+    change.
+    Do not write any explanations or other words, just reply with the commit
+    message in the following template format:
 
     ```
     <a short summary of all the changes>
