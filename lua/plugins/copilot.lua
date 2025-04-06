@@ -14,10 +14,6 @@ return {
                 yaml = true,
             },
         },
-        init = function()
-            vim.g.copilot_proxy = os.getenv('COPILOT_PROXY_URL')
-            vim.g.copilot_proxy_strict_ssl = false
-        end
     },
     {
         'CopilotC-Nvim/CopilotChat.nvim',
