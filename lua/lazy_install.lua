@@ -5,7 +5,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     if vim.v.shell_error ~= 0 then
         vim.api.nvim_echo({
             { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-            { out, "WarningMsg" },
+            { out,                            "WarningMsg" },
             { "\nPress any key to exit..." },
         }, true, {})
         vim.fn.getchar()
@@ -15,6 +15,33 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-    spec = require('plugins'),
+    spec = {
+        { import = 'plugins' },
+
+        -- QoL
+        'Raimondi/delimitMate',
+        'alvan/vim-closetag',
+        'mg979/vim-visual-multi',
+        'michaeljsmith/vim-indent-object',
+        'tpope/vim-commentary',
+        'tpope/vim-endwise',
+        'tpope/vim-fugitive',
+        'tpope/vim-repeat',
+        'tpope/vim-rsi',
+        'tpope/vim-surround',
+
+        -- Languages
+        'hashivim/vim-terraform',
+        'jackguo380/vim-lsp-cxx-highlight',
+        'leafgarland/typescript-vim',
+        'lepture/vim-jinja',
+        'mxw/vim-jsx',
+        'othree/html5.vim',
+        'pangloss/vim-javascript',
+        'peitalin/vim-jsx-typescript',
+        'rust-lang/rust.vim',
+        'vim-scripts/dbext.vim',
+        'ziglang/zig.vim',
+    },
     checker = { enabled = true },
 })
