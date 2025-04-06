@@ -14,9 +14,8 @@ return {
             yaml = true,
         },
     },
-    config = function(_, opts)
+    init = function()
         vim.g.copilot_proxy = 'http://localhost:11435/v1'
         vim.g.copilot_proxy_strict_ssl = false
-        require('copilot').setup(opts)
     end
 }
