@@ -7,7 +7,10 @@ return {
     event = 'BufEnter',
     opts = {
         user_input_ui = 'native',
-        providers = { ollama = {} },
+        providers = {
+            ollama = { endpoint = os.getenv('OLLAMA_HOST') .. '/api/chat' },
+            github = { api_key = os.getenv('GITHUB_TOKEN') },
+        },
         hooks = {
             Commit = function(prt, params)
                 local futils = require "parrot.file_utils"
@@ -43,6 +46,24 @@ return {
                 ]]
                 local model_obj = prt.get_model "command"
                 prt.Prompt(params, prt.ui.Target.rewrite, model_obj, nil, template)
+            end,
+            Test = function(prt, params)
+                local template = [[
+                I want you to write clear and concise unit tests for the code.
+                Write tests using idiomatic style, and the most popular testing
+                framework for {{filetype}}, for example, use pytest for python,
+                jest for javascript, etc.
+                Carefully examine the control flow so that the tests cover every
+                path and edge cases, and when testing infinite generators, limit
+                the checking to the first 10 elements.
+                Output just the tests for insertion.
+
+                ```{{filetype}}
+                {{selection}}
+                ```
+                ]]
+                local model_obj = prt.get_model "command"
+                prt.Prompt(params, prt.ui.Target.append, model_obj, nil, template)
             end,
             Debug = function(prt, params)
                 local chat_prompt = [[
