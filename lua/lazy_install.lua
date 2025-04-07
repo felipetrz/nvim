@@ -15,33 +15,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-    spec = {
-        { import = 'plugins' },
-
-        -- QoL
-        'Raimondi/delimitMate',
-        'alvan/vim-closetag',
-        'mg979/vim-visual-multi',
-        'michaeljsmith/vim-indent-object',
-        'tpope/vim-commentary',
-        'tpope/vim-endwise',
-        'tpope/vim-fugitive',
-        'tpope/vim-repeat',
-        'tpope/vim-rsi',
-        'tpope/vim-surround',
-
-        -- Languages
-        'hashivim/vim-terraform',
-        'jackguo380/vim-lsp-cxx-highlight',
-        'leafgarland/typescript-vim',
-        'lepture/vim-jinja',
-        'mxw/vim-jsx',
-        'othree/html5.vim',
-        'pangloss/vim-javascript',
-        'peitalin/vim-jsx-typescript',
-        'rust-lang/rust.vim',
-        'vim-scripts/dbext.vim',
-        'ziglang/zig.vim',
-    },
+    spec = { import = 'plugins' },
     checker = { enabled = true },
 })

@@ -15,7 +15,7 @@ vim.opt.hidden = true
 -- UI
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.signcolumn = 'number'
-vim.opt.completeopt = { 'menuone', 'noselect' }
+vim.opt.completeopt = { 'menu', 'menuone', 'noinsert' }
 vim.opt.winborder = 'rounded'
 vim.opt.shortmess:append { c = true, s = true, I = true }
 vim.opt.number = true
@@ -58,5 +58,6 @@ vim.opt.background = 'dark'
 vim.cmd.colorscheme 'felipetrz'
 
 require 'keymap'
-require 'lazy_install'
 require 'lsp'
+
+require 'lazy_install'
