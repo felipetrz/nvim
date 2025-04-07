@@ -1,5 +1,4 @@
 vim.lsp.enable('clangd')
-vim.lsp.enable('gleam')
 vim.lsp.enable('luals')
 vim.lsp.enable('pyright')
 vim.lsp.enable('ruff')
