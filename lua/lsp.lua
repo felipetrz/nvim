@@ -5,6 +5,16 @@ vim.lsp.enable('ruff')
 vim.lsp.enable('rust_analyzer')
 vim.lsp.enable('zls')
 
+-- Clear keys used by LSP
+vim.keymap.set({ 'n', 'x' }, '<c-f>', '<nop>')
+vim.keymap.set('n', 'gd', '<nop>')
+vim.keymap.set('n', 'gD', '<nop>')
+vim.keymap.set('n', 'gy', '<nop>')
+vim.keymap.set('n', 'gi', '<nop>')
+vim.keymap.set('n', 'gr', '<nop>')
+vim.keymap.set('n', '<leader>r', '<nop>')
+vim.keymap.set('n', '<leader>a', '<nop>')
+
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(ev)
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
@@ -28,7 +38,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
             vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { silent = true })
         end
         if client:supports_method('textDocument/typeDefinition') then
-            vim.keymap.set('n', 'gY', vim.lsp.buf.type_definition, { silent = true })
+            vim.keymap.set('n', 'gy', vim.lsp.buf.type_definition, { silent = true })
         end
         if client:supports_method('textDocument/implementation') then
             vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { silent = true })
@@ -51,7 +61,7 @@ vim.diagnostic.config({
     underline = true,
     signs = {
         text = {
-            [vim.diagnostic.severity.ERROR] = '!!',
+            [vim.diagnostic.severity.ERROR] = '!',
             [vim.diagnostic.severity.WARN] = '',
             [vim.diagnostic.severity.INFO] = '',
             [vim.diagnostic.severity.HINT] = '',

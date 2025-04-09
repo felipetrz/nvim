@@ -19,7 +19,7 @@ if gitdiff then
     message in the following template format:
 
     ```
-    <a short summary of all the changes>
+    <a short one-line summary of all the changes>
 
     - <each change in a list>
     ```
@@ -36,7 +36,9 @@ if gitdiff then
     ):wait()
 
     if result.code == 0 then
-        local message = result.stdout:match('```.-\n(.-)```')
-        vim.api.nvim_paste(message, false, -1)
+        local message = result.stdout:match('```.-\n(.-)```') or result.stdout
+        if message then
+            vim.api.nvim_paste(message, false, -1)
+        end
     end
 end

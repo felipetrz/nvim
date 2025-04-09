@@ -6,7 +6,7 @@ vim.opt.visualbell = false
 vim.opt.autoread = true
 
 -- Performance
-vim.opt.ttimeoutlen = 0
+vim.opt.ttimeoutlen = 9999
 vim.opt.updatetime = 250
 vim.opt.synmaxcol = 240
 vim.opt.lazyredraw = true

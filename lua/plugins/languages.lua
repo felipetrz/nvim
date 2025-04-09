@@ -8,6 +8,5 @@ return {
     'pangloss/vim-javascript',
     'peitalin/vim-jsx-typescript',
     'rust-lang/rust.vim',
-    'vim-scripts/dbext.vim',
     'ziglang/zig.vim',
 }

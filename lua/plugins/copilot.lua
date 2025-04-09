@@ -3,25 +3,22 @@ return {
         'zbirenbaum/copilot.lua',
         opts = {
             suggestion = {
-                keymap = {
-                    next = '<m-j>',
-                    prev = '<m-k>',
-                    accept = '<m-l>',
-                    dismiss = '<m-h>',
-                },
+                enabled = false,
+            },
+            panel = {
+                enabled = false,
             },
             filetypes = {
+                gitcommit = true,
+                markdown = true,
                 yaml = true,
             },
         },
     },
     {
-        'CopilotC-Nvim/CopilotChat.nvim',
-        dependencies = {
-            'zbirenbaum/copilot.lua',
-            { 'nvim-lua/plenary.nvim', branch = 'master' },
-        },
-        build = 'make tiktoken',
-        opts = {},
+        'zbirenbaum/copilot-cmp',
+        config = function()
+            require('copilot_cmp').setup()
+        end
     },
 }

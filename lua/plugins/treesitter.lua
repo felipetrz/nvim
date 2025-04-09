@@ -1,11 +1,12 @@
 return {
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-        'nvim-treesitter/nvim-treesitter-textobjects',
-    },
-    build = ':TSUpdate',
-    config = function()
-        require('nvim-treesitter.configs').setup({
+    {
+        'nvim-treesitter/nvim-treesitter',
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter-textobjects',
+        },
+        build = ':TSUpdate',
+        module = 'nvim-treesitter.configs',
+        opts = {
             sync_install = false,
             auto_install = true,
             highlight = {
@@ -34,9 +35,17 @@ return {
                         ["ad"] = "@comment.outer",
                         ["am"] = "@call.outer",
                         ["im"] = "@call.inner",
-                    }
-                }
-            }
-        })
-    end,
+                    },
+                },
+            },
+        },
+    },
+    {
+        'nvim-treesitter/nvim-treesitter-context',
+        opts = {
+            enable = true,
+            min_window_height = 20,
+            multiline_threshold = 1,
+        },
+    },
 }
