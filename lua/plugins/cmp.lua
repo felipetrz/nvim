@@ -21,6 +21,7 @@ return {
     },
     config = function()
         local cmp = require('cmp')
+        local copilot_suggestion = require('copilot.suggestion')
 
         cmp.setup({
             experimental = {
@@ -34,6 +35,11 @@ return {
             mapping = cmp.mapping.preset.insert({
                 ['<c-space>'] = cmp.mapping.complete(),
                 ['<tab>'] = function(fallback)
+                    if copilot_suggestion.is_visible() then
+                        copilot_suggestion.accept()
+                        return
+                    end
+
                     if cmp.visible() then
                         cmp.confirm({ select = true })
                         return
@@ -58,19 +64,36 @@ return {
                     end
 
                     fallback()
-                end
+                end,
+                ['<c-p>'] = function(fallback)
+                    if copilot_suggestion.is_visible() then
+                        copilot_suggestion.prev()
+                        return
+                    end
+
+                    fallback()
+                end,
+                ['<c-n>'] = function(fallback)
+                    if copilot_suggestion.is_visible() then
+                        copilot_suggestion.next()
+                        return
+                    end
+
+                    fallback()
+                end,
+                ['<c-e>'] = function(fallback)
+                    if copilot_suggestion.is_visible() then
+                        copilot_suggestion.dismiss()
+                        return
+                    end
+
+                    fallback()
+                end,
             }),
             sources = {
                 { name = 'nvim_lsp' },
                 { name = 'path' },
-                { name = 'copilot' },
-            },
-            sorting = {
-                priority_weight = 2,
-                comparators = {
-                    cmp.config.compare.exact,
-                    require('copilot_cmp.comparators').prioritize,
-                },
+                { name = 'buffer' },
             },
         })
 
@@ -90,5 +113,12 @@ return {
                 { name = 'buffer' },
             })
         })
+
+        cmp.event:on('menu_opened', function()
+            vim.b.copilot_suggestion_hidden = true
+        end)
+        cmp.event:on('menu_closed', function()
+            vim.b.copilot_suggestion_hidden = false
+        end)
     end,
 }

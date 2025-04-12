@@ -3,7 +3,13 @@ return {
         'zbirenbaum/copilot.lua',
         opts = {
             suggestion = {
-                enabled = false,
+                auto_trigger = true,
+                keymap = {
+                    dismiss = false,
+                    accept = false,
+                    next = false,
+                    prev = false,
+                },
             },
             panel = {
                 enabled = false,
@@ -14,11 +20,5 @@ return {
                 yaml = true,
             },
         },
-    },
-    {
-        'zbirenbaum/copilot-cmp',
-        config = function()
-            require('copilot_cmp').setup()
-        end
     },
 }
