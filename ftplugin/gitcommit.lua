@@ -1,4 +1,4 @@
-vim.api.nvim_buf_create_user_command('Generate', function()
+vim.api.nvim_buf_create_user_command(0, 'Generate', function()
     for _, line in ipairs(vim.api.nvim_buf_get_lines(0, 0, -1, false)) do
         if not line:find('^%s*$') and not line:find('^#') then
             -- Commit message already exists, skip generation
@@ -79,4 +79,4 @@ vim.api.nvim_buf_create_user_command('Generate', function()
             end)
         end,
     }):start()
-end)
+end, {})
