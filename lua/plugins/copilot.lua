@@ -2,6 +2,7 @@ return {
     {
         'zbirenbaum/copilot.lua',
         opts = {
+            copilot_model = 'gpt-4o-copilot',
             suggestion = {
                 auto_trigger = true,
                 keymap = {
