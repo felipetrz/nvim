@@ -2,6 +2,7 @@ local job = require('plenary.job')
 local llm = require('llm')
 
 local COMMIT_LANGUAGE = os.getenv('COMMIT_LANGUAGE') or 'en-US'
+
 local SYSTEM_PROMPT = [[
 I want you to act as a commit message generator.
 
@@ -20,14 +21,7 @@ the commit message in the following template format:
 Here are the changes that should be considered by this message:
 ]]
 
-vim.api.nvim_buf_create_user_command(0, 'Generate', function()
-    for _, line in ipairs(vim.api.nvim_buf_get_lines(0, 0, -1, false)) do
-        if not line:find('^%s*$') and not line:find('^#') then
-            -- Commit message already exists, skip generation
-            return
-        end
-    end
-
+local function generate()
     job:new({
         command = 'git',
         args = { 'diff', '--no-color', '--no-ext-diff', '--staged' },
@@ -57,4 +51,19 @@ vim.api.nvim_buf_create_user_command(0, 'Generate', function()
             })
         end,
     }):start()
-end, {})
+end
+
+vim.api.nvim_buf_create_user_command(0, 'Generate', generate, {})
+
+vim.api.nvim_create_autocmd('BufEnter', {
+    pattern = 'COMMIT_EDITMSG',
+    callback = function()
+        for _, line in ipairs(vim.api.nvim_buf_get_lines(0, 0, -1, false)) do
+            if not line:find('^%s*$') and not line:find('^#') then
+                -- Commit message already exists, skip generation
+                return
+            end
+        end
+        generate()
+    end,
+})
