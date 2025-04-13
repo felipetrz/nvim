@@ -8,6 +8,25 @@ vim.api.nvim_buf_create_user_command(0, 'Generate', function()
 
     local job = require('plenary.job')
 
+    local ENDPOINT = 'https://models.inference.ai.azure.com/chat/completions'
+    local TOKEN = os.getenv('GITHUB_TOKEN')
+    local SYSTEM = [[
+    I want you to act as a commit message generator.
+
+    Read the changes and provide an appropriate commit message
+    detailing every change.
+    Do not write any explanations or other words, just reply with
+    the commit message in the following template format:
+
+    ```
+    <a short one-line summary of all the changes>
+
+    - <each change in a list>
+    ```
+
+    Here are the changes that should be considered by this message:
+    ]]
+
     job:new({
         command = 'git',
         args = { 'diff', '--no-color', '--no-ext-diff', '--staged' },
@@ -25,23 +44,17 @@ vim.api.nvim_buf_create_user_command(0, 'Generate', function()
                 end
 
                 local prompt = vim.fn.json_encode({
-                    model = 'qwen2.5-coder:14b-instruct-q2_K',
-                    prompt = [[
-                    I want you to act as a commit message generator.
-
-                    Read the changes and provide an appropriate commit message
-                    detailing every change.
-                    Do not write any explanations or other words, just reply with
-                    the commit message in the following template format:
-
-                    ```
-                    <a short one-line summary of all the changes>
-
-                    - <each change in a list>
-                    ```
-
-                    Here are the changes that should be considered by this message:
-                    ]] .. diff,
+                    model = 'gpt-4o',
+                    messages = {
+                        {
+                            role = 'system',
+                            content = SYSTEM,
+                        },
+                        {
+                            role = 'user',
+                            content = diff,
+                        },
+                    },
                 })
 
                 job:new({
@@ -49,8 +62,9 @@ vim.api.nvim_buf_create_user_command(0, 'Generate', function()
                     args = {
                         '-s', '-X', 'POST',
                         '-H', 'Content-Type: application/json',
+                        '-H', 'Authorization: Bearer ' .. TOKEN,
                         '-d', prompt,
-                        'http://localhost:11434/api/generate',
+                        ENDPOINT,
                     },
                     on_exit = function(j, return_val)
                         if return_val ~= 0 then
@@ -58,18 +72,9 @@ vim.api.nvim_buf_create_user_command(0, 'Generate', function()
                             return
                         end
 
-                        local responses_json = {}
-                        for _, line in ipairs(j:result()) do
-                            table.insert(responses_json, line)
-                        end
-
                         vim.schedule(function()
-                            local message = ''
-                            for _, line in ipairs(responses_json) do
-                                message = message .. vim.fn.json_decode(line).response
-                            end
+                            local message = vim.fn.json_decode(j:result()[1]).choices[1].message.content
                             message = message:match('```.-\n(.*)```') or message
-
                             if message then
                                 vim.paste(vim.split(message, '\n'), -1)
                             end
