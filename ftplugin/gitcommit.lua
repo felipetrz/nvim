@@ -1,11 +1,13 @@
 local job = require('plenary.job')
 local llm = require('llm')
 
+local COMMIT_LANGUAGE = os.getenv('COMMIT_LANGUAGE') or 'en-US'
 local SYSTEM_PROMPT = [[
 I want you to act as a commit message generator.
 
 Read the changes and provide an appropriate commit message
 detailing every change.
+Answer in ]] .. COMMIT_LANGUAGE .. [[.
 Do not write any explanations or other words, just reply with
 the commit message in the following template format:
 
