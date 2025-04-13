@@ -7,7 +7,7 @@ local M = {}
 
 M.prompt = function(params)
     local request_body = {
-        model = 'gpt-4o',
+        model = 'DeepSeek-V3-0324',
         messages = {},
     }
 
