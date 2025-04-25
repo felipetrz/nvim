@@ -71,6 +71,11 @@ return {
                         return
                     end
 
+                    if cmp.visible() then
+                        cmp.select_prev_item()
+                        return
+                    end
+
                     fallback()
                 end,
                 ['<c-n>'] = function(fallback)
@@ -79,11 +84,26 @@ return {
                         return
                     end
 
+                    if cmp.visible() then
+                        cmp.select_next_item()
+                        return
+                    end
+
                     fallback()
                 end,
                 ['<c-e>'] = function(fallback)
                     if copilot_suggestion.is_visible() then
                         copilot_suggestion.dismiss()
+                        return
+                    end
+
+                    if cmp.visible() then
+                        cmp.close()
+                        return
+                    end
+
+                    if vim.snippet.active() then
+                        vim.snippet.stop()
                         return
                     end
 
@@ -115,8 +135,10 @@ return {
         })
 
         cmp.event:on('menu_opened', function()
+            copilot_suggestion.dismiss()
             vim.b.copilot_suggestion_hidden = true
         end)
+
         cmp.event:on('menu_closed', function()
             vim.b.copilot_suggestion_hidden = false
         end)
