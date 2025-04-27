@@ -21,7 +21,6 @@ return {
     },
     config = function()
         local cmp = require('cmp')
-        local copilot_suggestion = require('copilot.suggestion')
 
         cmp.setup({
             experimental = {
@@ -35,11 +34,6 @@ return {
             mapping = cmp.mapping.preset.insert({
                 ['<c-space>'] = cmp.mapping.complete(),
                 ['<tab>'] = function(fallback)
-                    if copilot_suggestion.is_visible() then
-                        copilot_suggestion.accept()
-                        return
-                    end
-
                     if cmp.visible() then
                         cmp.confirm({ select = true })
                         return
@@ -66,11 +60,6 @@ return {
                     fallback()
                 end,
                 ['<c-p>'] = function(fallback)
-                    if copilot_suggestion.is_visible() then
-                        copilot_suggestion.prev()
-                        return
-                    end
-
                     if cmp.visible() then
                         cmp.select_prev_item()
                         return
@@ -79,11 +68,6 @@ return {
                     fallback()
                 end,
                 ['<c-n>'] = function(fallback)
-                    if copilot_suggestion.is_visible() then
-                        copilot_suggestion.next()
-                        return
-                    end
-
                     if cmp.visible() then
                         cmp.select_next_item()
                         return
@@ -92,11 +76,6 @@ return {
                     fallback()
                 end,
                 ['<c-e>'] = function(fallback)
-                    if copilot_suggestion.is_visible() then
-                        copilot_suggestion.dismiss()
-                        return
-                    end
-
                     if cmp.visible() then
                         cmp.close()
                         return
@@ -133,14 +112,5 @@ return {
                 { name = 'buffer' },
             })
         })
-
-        cmp.event:on('menu_opened', function()
-            copilot_suggestion.dismiss()
-            vim.b.copilot_suggestion_hidden = true
-        end)
-
-        cmp.event:on('menu_closed', function()
-            vim.b.copilot_suggestion_hidden = false
-        end)
     end,
 }
