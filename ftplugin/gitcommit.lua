@@ -15,7 +15,7 @@ the commit message in the following template format:
 ```
 <a short one-line summary of all the changes>
 
-- <each change in a list>
+- <list of each important overarching change>
 ```
 
 Here are the changes that should be considered by this message:

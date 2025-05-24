@@ -7,7 +7,7 @@ local M = {}
 
 M.prompt = function(params)
     local request_body = {
-        model = 'gpt-4o',
+        model = 'gpt-4.1',
         messages = {},
     }
 
