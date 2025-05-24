@@ -10,14 +10,11 @@ return {
     'hrsh7th/nvim-cmp',
     event = {
         'InsertEnter',
-        'CmdlineEnter',
     },
     dependencies = {
         'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-path',
         'hrsh7th/cmp-buffer',
-        'hrsh7th/cmp-cmdline',
-        'hrsh7th/cmp-git',
+        'hrsh7th/cmp-path',
     },
     config = function()
         local cmp = require('cmp')
@@ -94,23 +91,6 @@ return {
                 { name = 'path' },
                 { name = 'buffer' },
             },
-        })
-
-        cmp.setup.cmdline(':', {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = cmp.config.sources({
-                { name = 'path' }
-            }, {
-                { name = 'cmdline' }
-            })
-        })
-
-        cmp.setup.filetype('gitcommit', {
-            sources = cmp.config.sources({
-                { name = 'cmp_git' },
-            }, {
-                { name = 'buffer' },
-            })
         })
     end,
 }
