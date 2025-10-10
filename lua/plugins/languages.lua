@@ -1,12 +1,14 @@
 return {
-    'hashivim/vim-terraform',
-    'jackguo380/vim-lsp-cxx-highlight',
-    'leafgarland/typescript-vim',
+    -- programming languages
+    'ziglang/zig.vim',
+    'rust-lang/rust.vim',
+    -- webdev
     'lepture/vim-jinja',
     'mxw/vim-jsx',
     'othree/html5.vim',
     'pangloss/vim-javascript',
+    'leafgarland/typescript-vim',
     'peitalin/vim-jsx-typescript',
-    'rust-lang/rust.vim',
-    'ziglang/zig.vim',
+    -- infrastructure
+    'hashivim/vim-terraform',
 }
