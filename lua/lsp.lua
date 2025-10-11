@@ -3,9 +3,9 @@ vim.lsp.enable('luals')
 vim.lsp.enable('pyright')
 vim.lsp.enable('ruff')
 vim.lsp.enable('rust_analyzer')
-vim.lsp.enable('zls')
+vim.lsp.enable('slint')
 vim.lsp.enable('terraform')
-
+vim.lsp.enable('zls')
 
 -- Clear keys used by LSP
 vim.keymap.set({ 'n', 'x' }, '<c-f>', '<nop>')
