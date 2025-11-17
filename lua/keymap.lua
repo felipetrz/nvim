@@ -15,6 +15,12 @@ vim.keymap.set('i', '<c-g>',
     { noremap = true, silent = true }
 )
 
+-- Generate UUID
+vim.keymap.set('i', '<c-u>',
+    "<c-r>=system('uuidgen')->trim()<cr>",
+    { noremap = true, silent = true }
+)
+
 -- Diagnostics
 
 local function diagnostic(direction, severity)

@@ -1,10 +1,16 @@
+vim.lsp.enable('c3lsp')
 vim.lsp.enable('clangd')
+vim.lsp.enable('gopls')
 vim.lsp.enable('luals')
+vim.lsp.enable('ols')
 vim.lsp.enable('pyright')
+vim.lsp.enable('roc')
 vim.lsp.enable('ruff')
 vim.lsp.enable('rust_analyzer')
+vim.lsp.enable('serve-d')
 vim.lsp.enable('slint')
 vim.lsp.enable('terraform')
+vim.lsp.enable('v-analyzer')
 vim.lsp.enable('zls')
 
 -- Clear keys used by LSP
