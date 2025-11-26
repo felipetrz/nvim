@@ -59,5 +59,5 @@ vim.cmd.colorscheme 'felipetrz'
 
 require 'keymap'
 require 'lsp'
-
 require 'lazy_install'
+require 'filetypes'

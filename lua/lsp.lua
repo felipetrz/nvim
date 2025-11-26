@@ -1,5 +1,6 @@
 vim.lsp.enable('c3lsp')
 vim.lsp.enable('clangd')
+vim.lsp.enable('gleam')
 vim.lsp.enable('gopls')
 vim.lsp.enable('luals')
 vim.lsp.enable('ols')
