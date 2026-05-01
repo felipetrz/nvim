@@ -4,6 +4,5 @@ vim.filetype.add({
         ['.*.vert'] = "glsl",
         ['.*.frag'] = "glsl",
         ['.*.wgsl'] = "wgsl",
-        ['.*.gleam'] = "gleam",
     },
 })

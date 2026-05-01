@@ -1,5 +1,5 @@
 return {
     cmd = { 'v-analyzer' },
-    filetypes = { 'vlang' },
+    filetypes = { 'v' },
     root_markers = { '.git', 'v.mod' },
 }
